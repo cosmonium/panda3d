@@ -35,6 +35,7 @@ struct char_cmp {
   }
 };
 typedef pmap<const char *, const aiNode *, char_cmp> BoneMap;
+typedef pmap<const char *, PT(Character), char_cmp> CharacterMap;
 
 /**
  * Class that interfaces with Assimp and builds Panda nodes to represent the
@@ -66,7 +67,7 @@ private:
   PT(Geom) *_geoms;
   unsigned int *_geom_matindices;
   BoneMap _bonemap;
-  PT(Character) *_characters;
+  CharacterMap _charmap;
 
   const aiNode *find_node(const aiNode &root, const aiString &name);
 
@@ -76,7 +77,7 @@ private:
   void create_joint(Character *character, CharacterJointBundle *bundle, PartGroup *parent, const aiNode &node);
   void create_anim_channel(const aiAnimation &anim, AnimBundle *bundle, AnimGroup *parent, const aiNode &node);
   void load_mesh(size_t index);
-  bool load_node(const aiNode &node, PandaNode *parent, bool under_joint = false);
+  void load_node(const aiNode &node, PandaNode *parent);
   void load_light(const aiLight &light);
 };
 
