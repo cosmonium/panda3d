@@ -37,7 +37,7 @@ PUBLISHED:
     num_bits = BMType::num_bits * 2,
   };
 
-  constexpr DoubleBitMask() = default;
+  ALWAYS_INLINE constexpr DoubleBitMask() = default;
 
   INLINE static DoubleBitMask<BMType> all_on();
   INLINE static DoubleBitMask<BMType> all_off();
