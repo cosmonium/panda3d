@@ -673,6 +673,7 @@ class build_apps(setuptools.Command):
             'CFBundlePackageType': 'APPL',
             'CFBundleSignature': '', #TODO
             'CFBundleExecutable': self.macos_main_app,
+            'NSHighResolutionCapable': 'True',
         }
 
         icon = self.icon_objects.get(

@@ -50,6 +50,10 @@
   _graphicsWindow->handle_foreground_event(false);
 }
 
+- (void) windowDidChangeBackingProperties:(NSNotification *)notification {
+  _graphicsWindow->handle_backing_change_event();
+}
+
 - (BOOL) windowShouldClose:(id)sender {
   bool should_close = _graphicsWindow->handle_close_request();
   if (should_close) {
