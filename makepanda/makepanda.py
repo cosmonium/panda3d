@@ -6117,6 +6117,9 @@ if PkgSkip("PYTHON") == 0:
         PyTargetAdd('frozen_dllmain.obj', opts=OPTS, input='frozen_dllmain.c')
 
     if GetTarget() == 'linux' or GetTarget() == 'freebsd':
+        # Disable new dtags to be sure to create a RPATH entry iso a RUNPATH
+        # See https://github.com/panda3d/panda3d/issues/1358
+        LibName('DEPLOYSTUB', "-Wl,--disable-new-dtags")
         # Setup rpath so libs can be found in the same directory as the deployed game
         LibName('DEPLOYSTUB', "-Wl,-rpath,\\$ORIGIN")
         LibName('DEPLOYSTUB', "-Wl,-z,origin")

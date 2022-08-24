@@ -17,7 +17,9 @@ elseif(IS_LINUX OR IS_FREEBSD)
   set_target_properties(deploy-stub PROPERTIES
     INSTALL_RPATH "$ORIGIN"
     BUILD_WITH_INSTALL_RPATH ON)
-  target_link_options(deploy-stub PRIVATE -Wl,-z,origin -rdynamic)
+    # Use --disable-new-dtags to be sure to create a RPATH entry iso a RUNPATH
+    # See https://github.com/panda3d/panda3d/issues/1358
+  target_link_options(deploy-stub PRIVATE -Wl,--disable-new-dtags -Wl,-z,origin -rdynamic)
 endif()
 
 target_link_libraries(deploy-stub Python::Python)
