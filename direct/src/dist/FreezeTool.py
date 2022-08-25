@@ -1191,12 +1191,18 @@ class Freezer:
         # Special case for sysconfig, which depends on a platform-specific
         # sysconfigdata module on POSIX systems.
         if 'sysconfig' in self.mf.modules:
-            if sys.version_info >= (3, 6):
+            if sys.version_info >= (3, 8):
                 if 'linux' in self.platform:
                     arch = self.platform.split('_', 1)[1]
                     self.__loadModule(self.ModuleDef('_sysconfigdata__linux_' + arch + '-linux-gnu', implicit=True))
                 elif 'mac' in self.platform:
                     self.__loadModule(self.ModuleDef('_sysconfigdata__darwin_darwin', implicit=True))
+            elif sys.version_info >= (3, 6):
+                if 'linux' in self.platform:
+                    arch = self.platform.split('_', 1)[1]
+                    self.__loadModule(self.ModuleDef('_sysconfigdata_m_linux_' + arch + '-linux-gnu', implicit=True))
+                elif 'mac' in self.platform:
+                    self.__loadModule(self.ModuleDef('_sysconfigdata_m_darwin_darwin', implicit=True))
             elif 'linux' in self.platform or 'mac' in self.platform:
                 self.__loadModule(self.ModuleDef('_sysconfigdata', implicit=True))
 
